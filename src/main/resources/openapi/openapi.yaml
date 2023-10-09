@@ -1,0 +1,19 @@
+openapi: "3.0.0"
+
+info:
+  title: Spring Shop
+  description: Shop API
+  version: 1.0.0
+
+paths:
+
+  # Products
+  /api/v1/products:
+    $ref: './paths/products.yaml'
+
+
+components:
+  schemas:
+
+    ProductResponse:
+      $ref: './schemas/product-response.yaml'

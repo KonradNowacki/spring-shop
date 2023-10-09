@@ -8,6 +8,8 @@ public class SpringshopApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(SpringshopApplication.class, args);
+
+        System.out.println("Welcome to Spring Shop!");
     }
 
 }

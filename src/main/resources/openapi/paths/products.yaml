@@ -1,0 +1,15 @@
+get:
+  summary: Get a product by ID
+  operationId: getProductById
+  description: Get a product by ID
+  tags:
+    - Products
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../schemas/product-response.yaml'

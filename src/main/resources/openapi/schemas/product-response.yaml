@@ -1,0 +1,15 @@
+type: object
+properties:
+  productName:
+    type: string
+#  companySize:
+#    type: string
+#  companyType:
+#    $ref: "./../company-type/company-type.yml"
+#  locations:
+#    type: array
+#    items:
+#      $ref: "./../company/company-location.yml"
+
+required:
+  - productName
