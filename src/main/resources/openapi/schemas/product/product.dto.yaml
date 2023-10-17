@@ -1,0 +1,21 @@
+type: object
+properties:
+  id:
+    type: number
+    positive: true
+  name:
+    type: string
+  price:
+    type: number
+    format: double
+  createdAt:
+    type: string
+    format: date-time
+  updatedAt:
+    type: string
+    format: date-time
+
+required:
+  - name
+  - createdAt
+  - updatedAt

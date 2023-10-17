@@ -7,13 +7,23 @@ info:
 
 paths:
 
-  # Products
+  # Product
   /api/v1/products:
     $ref: './paths/products.yaml'
+
+  # Category
+  /api/v1/categories:
+    $ref: './paths/categories.yaml'
 
 
 components:
   schemas:
 
-    ProductResponse:
-      $ref: './schemas/product-response.yaml'
+    # Product
+    ProductCreateDto:
+      $ref: './schemas/product/product-create.dto.yaml'
+
+    # Category
+    CategoryCreateDto:
+      $ref: './schemas/category/category-create.dto.yaml'
+

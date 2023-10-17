@@ -1,0 +1,20 @@
+post:
+  summary: Create a new product category
+  operationId: createCategory
+  description: Create a new product category
+  tags:
+    - Categories
+  requestBody:
+    description: Category
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../schemas/category/category-create.dto.yaml'
+  responses:
+    '201':
+      description: CREATED
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/category/category.dto.yaml'
