@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,6 +36,23 @@ public class CategoryController implements CategoriesApi {
         }
 
         return null;
+    }
 
+    @Override
+    public ResponseEntity<List<CategoryDto>> getCategories() {
+        log.info("Getting all categories");
+
+        try {
+            List<Category> categories = categoryService.getCategories();
+            List<CategoryDto> categoryDtos = categories.stream()
+                    .map(categoryMapper::entityToDto)
+                    .toList();
+
+            return ResponseEntity.ok(categoryDtos);
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+
+        return null;
     }
 }

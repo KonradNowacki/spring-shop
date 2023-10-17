@@ -8,6 +8,8 @@ properties:
   price:
     type: number
     format: double
+  description:
+    type: string
   createdAt:
     type: string
     format: date-time
@@ -17,5 +19,6 @@ properties:
 
 required:
   - name
+  - price
   - createdAt
   - updatedAt

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,14 +25,27 @@ public class ProductController implements ProductsApi {
 
         try {
             Product product = productMapper.dtoToEntity(productCreateDto);
-            System.out.printf("Product mapped: %s%n", product.getName());
             Product createdProduct = productService.createProduct(product);
             ProductDto productDto = productMapper.entityToDto(createdProduct);
 
-            System.out.printf("Created product: %s%n", productDto.getName());
-
             // TODO Add better URI
             return ResponseEntity.created(new URI("/")).body(productDto);
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<List<ProductDto>> getProducts() {
+        log.info("Getting all products");
+
+        try {
+            List<Product> products = productService.getProducts();
+            List<ProductDto> productDtos = products.stream().map(productMapper::entityToDto).toList();
+
+            return ResponseEntity.ok(productDtos);
         } catch (Exception e) {
             // TODO: handle exception
         }

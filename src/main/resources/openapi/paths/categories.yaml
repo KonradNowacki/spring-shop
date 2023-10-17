@@ -1,3 +1,19 @@
+get:
+  summary: Get all product categories
+  operationId: getCategories
+  description: Get all product categories
+  tags:
+    - Categories
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../schemas/category/category.dto.yaml'
+
 post:
   summary: Create a new product category
   operationId: createCategory

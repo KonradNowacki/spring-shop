@@ -1,3 +1,19 @@
+get:
+  summary: Get all products
+  operationId: getProducts
+  description: Get all products
+  tags:
+    - Products
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../schemas/product/product.dto.yaml'
+
 post:
   summary: Create a new product
   operationId: createProduct

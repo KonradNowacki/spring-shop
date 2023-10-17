@@ -4,10 +4,9 @@ properties:
     type: string
   price:
     type: number
+    format: double
   description:
     type: string
-  isPublic:
-    type: boolean
 #  companySize:
 #    type: string
 #  companyType:
