@@ -10,6 +10,10 @@ properties:
     format: double
   description:
     type: string
+  categories:
+    type: array
+    items:
+      $ref: './../category/category.dto.yaml'
   createdAt:
     type: string
     format: date-time

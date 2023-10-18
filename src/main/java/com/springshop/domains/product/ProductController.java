@@ -25,7 +25,7 @@ public class ProductController implements ProductsApi {
 
         try {
             Product product = productMapper.dtoToEntity(productCreateDto);
-            Product createdProduct = productService.createProduct(product);
+            Product createdProduct = productService.createProduct(product, productCreateDto.getCategoryIds());
             ProductDto productDto = productMapper.entityToDto(createdProduct);
 
             // TODO Add better URI

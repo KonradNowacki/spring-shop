@@ -8,14 +8,14 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
-@Table(name = "category")
+@Table(name = "categories")
 @AllArgsConstructor
 public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
+    @Column(name = "category_id")
+    private Long id;
 
     @Column(name = "name")
     private String name;
