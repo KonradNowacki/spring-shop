@@ -1,0 +1,50 @@
+delete:
+  summary: Delete a product
+  operationId: deleteProduct
+  tags:
+    - Products
+  parameters:
+    - in: path
+      name: id
+      required: true
+      schema:
+        type: integer
+        format: int64
+        positive: true
+  responses:
+    '204':
+      description: No Content
+    '404':
+      description: Not Found
+
+patch:
+  summary: Update a product
+  operationId: updateProduct
+  tags:
+    - Products
+  parameters:
+    - in: path
+      name: id
+      required: true
+      schema:
+        type: integer
+        format: int64
+        positive: true
+  requestBody:
+    description: Product
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../schemas/product/product-update.dto.yaml'
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/product/product.dto.yaml'
+    '400':
+      description: Bad Request
+    '404':
+      description: Not Found

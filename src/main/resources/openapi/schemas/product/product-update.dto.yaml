@@ -1,0 +1,15 @@
+type: object
+properties:
+  name:
+    type: string
+  price:
+    type: number
+    format: double
+  description:
+    type: string
+  categoryIds:
+    type: array
+    items:
+      type: integer
+      format: int64
+

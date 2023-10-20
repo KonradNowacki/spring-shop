@@ -6,9 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Builder
 @NoArgsConstructor
@@ -30,12 +28,15 @@ public class Product extends BaseEntity {
     @Column(name = "price")
     private double price;
 
+    @Column(name = "description")
+    private String description;
+
     @Column(name = "categories")
     @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(
-            name = "products_categories",
-            joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "category_id")
+        name = "products_categories",
+        joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "product_id"),
+        inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "category_id")
     )
     private List<Category> categories = new ArrayList<>();
 }

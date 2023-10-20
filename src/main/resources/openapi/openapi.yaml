@@ -9,7 +9,9 @@ paths:
 
   # Product
   /api/v1/products:
-    $ref: './paths/products.yaml'
+    $ref: './paths/products/products.yaml'
+  /api/v1/products/{id}:
+    $ref: './paths/products/products-id.yaml'
 
   # Category
   /api/v1/categories:
