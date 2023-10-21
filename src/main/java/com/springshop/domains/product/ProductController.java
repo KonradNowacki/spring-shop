@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+import org.webjars.NotFoundException;
 
 import java.net.URI;
 import java.util.List;
@@ -58,8 +59,17 @@ public class ProductController implements ProductsApi {
     public ResponseEntity<Void> deleteProduct(Long id) {
         log.info("Deleting product with id: {}", id);
 
-        productService.deleteProduct(id);
-        return ResponseEntity.noContent().build();
+        try {
+            productService.deleteProduct(id);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            log.error("Error deleting product with id: {}", id, e);
+            if (e instanceof NotFoundException) {
+                return ResponseEntity.notFound().build();
+            }
+        }
+
+        return null;
     }
 
     @Override
@@ -75,8 +85,32 @@ public class ProductController implements ProductsApi {
             // TODO Add better URI
             return ResponseEntity.created(new URI("/")).body(productDto);
         } catch (Exception e) {
-            System.out.println("e: " + e);
-            // TODO: handle exception
+            log.error("Error updating product: {}", productUpdateDto, e);
+            if (e instanceof NotFoundException) {
+                return ResponseEntity.notFound().build();
+            }
+        }
+
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<ProductDto> getProduct(Long id) {
+        log.info("Getting product with id: {}", id);
+
+        try {
+            Product createdProduct = productService.getProductById(id);
+            ProductDto productDto = productMapper.entityToDto(createdProduct);
+
+            System.out.println("productDto: " + productDto);
+
+            // TODO Add better URI
+            return ResponseEntity.created(new URI("/")).body(productDto);
+        } catch (Exception e) {
+            log.error("Error getting product with id: {}", id, e);
+            if (e instanceof NotFoundException) {
+                return ResponseEntity.notFound().build();
+            }
         }
 
         return null;

@@ -1,3 +1,26 @@
+get:
+  summary: Get a product
+  operationId: getProduct
+  tags:
+    - Products
+  parameters:
+    - in: path
+      name: id
+      required: true
+      schema:
+        type: integer
+        format: int64
+        positive: true
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/product/product.dto.yaml'
+    '404':
+      description: Not Found
+
 delete:
   summary: Delete a product
   operationId: deleteProduct

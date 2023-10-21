@@ -5,6 +5,7 @@ import com.springshop.domains.category.CategoryRepository;
 import com.springshop.openapi.model.ProductUpdateDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.webjars.NotFoundException;
 
 import java.util.List;
 
@@ -28,12 +29,16 @@ public class ProductService {
     }
 
     public void deleteProduct(Long id) {
+        productRepository.findById(id).orElseThrow(
+                () -> new NotFoundException(String.format("Product with id %d not found", id)));
+
         productRepository.deleteById(id);
     }
 
     public Product updateProduct(Long id, ProductUpdateDto productUpdateDto) {
-        Product p = productRepository.findById(id).orElseThrow(/* TODO Add Custom Exception */);
-        System.out.println("productUpdateDto = " + productUpdateDto.getCategoryIds());
+        Product p = productRepository.findById(id).orElseThrow(
+                () -> new NotFoundException(String.format("Product with id %d not found", id)));
+
         productMapper.updateProductFromDto(productUpdateDto, p);
 
         if (productUpdateDto.getCategoryIds() != null) {
@@ -42,6 +47,11 @@ public class ProductService {
         }
 
         return productRepository.save(p);
+    }
+
+    public Product getProductById(Long id) {
+        return productRepository.findById(id).orElseThrow(
+                () -> new NotFoundException(String.format("Product with id %d not found", id)));
     }
 
 }
