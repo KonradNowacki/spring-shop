@@ -17,7 +17,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: '../../schemas/product/product.dto.yaml'
+            $ref: '../../schemas/product/product.response.yaml'
     '404':
       description: Not Found
 
@@ -59,14 +59,14 @@ patch:
     content:
       application/json:
         schema:
-          $ref: '../../schemas/product/product-update.dto.yaml'
+          $ref: '../../schemas/product/product-update.request.yaml'
   responses:
     '200':
       description: OK
       content:
         application/json:
           schema:
-            $ref: '../../schemas/product/product.dto.yaml'
+            $ref: '../../schemas/product/product.response.yaml'
     '400':
       description: Bad Request
     '404':

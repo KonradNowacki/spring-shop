@@ -12,7 +12,7 @@ get:
           schema:
             type: array
             items:
-              $ref: '../../schemas/product/product.dto.yaml'
+              $ref: '../../schemas/product/product.response.yaml'
 
 post:
   summary: Create a new product
@@ -26,11 +26,11 @@ post:
     content:
       application/json:
         schema:
-          $ref: '../../schemas/product/product-create.dto.yaml'
+          $ref: '../../schemas/product/product-create.request.yaml'
   responses:
     '201':
       description: CREATED
       content:
         application/json:
           schema:
-            $ref: '../../schemas/product/product.dto.yaml'
+            $ref: '../../schemas/product/product.response.yaml'

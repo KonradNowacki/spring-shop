@@ -1,8 +1,8 @@
 package com.springshop.domains.category;
 
 import com.springshop.openapi.api.CategoriesApi;
-import com.springshop.openapi.model.CategoryCreateDto;
-import com.springshop.openapi.model.CategoryDto;
+import com.springshop.openapi.model.CategoryCreateRequest;
+import com.springshop.openapi.model.CategoryResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -20,14 +20,14 @@ public class CategoryController implements CategoriesApi {
     private final CategoryService categoryService;
 
     @Override
-    public ResponseEntity<CategoryDto> createCategory(CategoryCreateDto categoryCreateDto) {
+    public ResponseEntity<CategoryResponse> createCategory(CategoryCreateRequest categoryCreateRequest) {
 
-        log.info("Creating category: {}", categoryCreateDto);
+        log.info("Creating category: {}", categoryCreateRequest);
 
         try {
-            Category category = categoryMapper.dtoToEntity(categoryCreateDto);
+            Category category = categoryMapper.dtoToEntity(categoryCreateRequest);
             Category createdCategory = categoryService.createCategory(category);
-            CategoryDto categoryDto = categoryMapper.entityToDto(createdCategory);
+            CategoryResponse categoryDto = categoryMapper.entityToDto(createdCategory);
 
             // TODO Add better URI
             return ResponseEntity.created(new URI("/")).body(categoryDto);
@@ -39,12 +39,12 @@ public class CategoryController implements CategoriesApi {
     }
 
     @Override
-    public ResponseEntity<List<CategoryDto>> getCategories() {
+    public ResponseEntity<List<CategoryResponse>> getCategories() {
         log.info("Getting all categories");
 
         try {
             List<Category> categories = categoryService.getCategories();
-            List<CategoryDto> categoryDtos = categories.stream()
+            List<CategoryResponse> categoryDtos = categories.stream()
                     .map(categoryMapper::entityToDto)
                     .toList();
 

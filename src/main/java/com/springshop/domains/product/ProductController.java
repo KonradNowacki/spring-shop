@@ -2,8 +2,9 @@ package com.springshop.domains.product;
 
 import com.springshop.openapi.api.ProductsApi;
 import com.springshop.openapi.model.ProductCreateDto;
-import com.springshop.openapi.model.ProductDto;
-import com.springshop.openapi.model.ProductUpdateDto;
+import com.springshop.openapi.model.ProductCreateRequest;
+import com.springshop.openapi.model.ProductResponse;
+import com.springshop.openapi.model.ProductUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -22,30 +23,31 @@ public class ProductController implements ProductsApi {
     private final ProductService productService;
 
     @Override
-    public ResponseEntity<ProductDto> createProduct(ProductCreateDto productCreateDto) {
-        log.info("Creating product: {}", productCreateDto);
+    public ResponseEntity<ProductResponse> createProduct(ProductCreateRequest productCreateRequest) {
+        log.info("Creating product: {}", productCreateRequest);
 
         try {
-            Product product = productMapper.createDtoToEntity(productCreateDto);
-            Product createdProduct = productService.createProduct(product, productCreateDto.getCategoryIds());
-            ProductDto productDto = productMapper.entityToDto(createdProduct);
+            Product product = productMapper.createDtoToEntity(productCreateRequest);
+            Product createdProduct = productService.createProduct(product, productCreateRequest.getCategoryIds());
+            ProductResponse productResponse = productMapper.entityToDto(createdProduct);
 
             // TODO Add better URI
-            return ResponseEntity.created(new URI("/")).body(productDto);
+            return ResponseEntity.created(new URI("/")).body(productResponse);
         } catch (Exception e) {
             // TODO: handle exception
+            log.error("Error creating product: {}", productCreateRequest, e);
         }
 
         return null;
     }
 
     @Override
-    public ResponseEntity<List<ProductDto>> getProducts() {
+    public ResponseEntity<List<ProductResponse>> getProducts() {
         log.info("Getting all products");
 
         try {
             List<Product> products = productService.getProducts();
-            List<ProductDto> productDtos = products.stream().map(productMapper::entityToDto).toList();
+            List<ProductResponse> productDtos = products.stream().map(productMapper::entityToDto).toList();
 
             return ResponseEntity.ok(productDtos);
         } catch (Exception e) {
@@ -73,12 +75,12 @@ public class ProductController implements ProductsApi {
     }
 
     @Override
-    public ResponseEntity<ProductDto> updateProduct(Long id, ProductUpdateDto productUpdateDto) {
+    public ResponseEntity<ProductResponse> updateProduct(Long id, ProductUpdateRequest productUpdateDto) {
         log.info("Updating product: {}", productUpdateDto);
 
         try {
             Product createdProduct = productService.updateProduct(id, productUpdateDto);
-            ProductDto productDto = productMapper.entityToDto(createdProduct);
+            ProductResponse productDto = productMapper.entityToDto(createdProduct);
 
             System.out.println("productDto: " + productDto);
 
@@ -95,12 +97,12 @@ public class ProductController implements ProductsApi {
     }
 
     @Override
-    public ResponseEntity<ProductDto> getProduct(Long id) {
+    public ResponseEntity<ProductResponse> getProduct(Long id) {
         log.info("Getting product with id: {}", id);
 
         try {
             Product createdProduct = productService.getProductById(id);
-            ProductDto productDto = productMapper.entityToDto(createdProduct);
+            ProductResponse productDto = productMapper.entityToDto(createdProduct);
 
             System.out.println("productDto: " + productDto);
 

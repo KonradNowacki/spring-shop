@@ -13,7 +13,7 @@ properties:
   categories:
     type: array
     items:
-      $ref: './../category/category.dto.yaml'
+      $ref: './../category/category.response.yaml'
   createdAt:
     type: string
     format: date-time

@@ -23,9 +23,9 @@ components:
 
     # Product
     ProductCreateDto:
-      $ref: './schemas/product/product-create.dto.yaml'
+      $ref: './schemas/product/product-create.request.yaml'
 
     # Category
     CategoryCreateDto:
-      $ref: './schemas/category/category-create.dto.yaml'
+      $ref: './schemas/category/category-create.request.yaml'
 

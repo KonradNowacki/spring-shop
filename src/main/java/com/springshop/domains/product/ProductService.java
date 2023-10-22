@@ -2,7 +2,7 @@ package com.springshop.domains.product;
 
 import com.springshop.domains.category.Category;
 import com.springshop.domains.category.CategoryRepository;
-import com.springshop.openapi.model.ProductUpdateDto;
+import com.springshop.openapi.model.ProductUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
@@ -35,7 +35,7 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
-    public Product updateProduct(Long id, ProductUpdateDto productUpdateDto) {
+    public Product updateProduct(Long id, ProductUpdateRequest productUpdateDto) {
         Product p = productRepository.findById(id).orElseThrow(
                 () -> new NotFoundException(String.format("Product with id %d not found", id)));
 

@@ -1,10 +1,7 @@
 package com.springshop.domains.product;
 
 import com.springshop.domains.category.Category;
-import com.springshop.openapi.model.CategoryDto;
-import com.springshop.openapi.model.ProductCreateDto;
-import com.springshop.openapi.model.ProductDto;
-import com.springshop.openapi.model.ProductUpdateDto;
+import com.springshop.openapi.model.*;
 import org.mapstruct.*;
 
 import java.util.ArrayList;
@@ -15,14 +12,14 @@ import static java.util.Objects.isNull;
 @Mapper(componentModel = "spring")
 public interface ProductMapper {
 
-    Product createDtoToEntity(ProductCreateDto dto);
-    CategoryDto categoryEntityToDto(Category category);
+    Product createDtoToEntity(ProductCreateRequest dto);
+    CategoryResponse categoryEntityToDto(Category category);
 
     @Mapping(target = "categories", source = "categories", qualifiedByName = "categoryEntityToDto")
-    ProductDto entityToDto(Product entity);
+    ProductResponse entityToDto(Product entity);
 
     @Named("categoryEntityToDto")
-    default List<CategoryDto> categoryEntityToDto(List<Category> categories) {
+    default List<CategoryResponse> categoryEntityToDto(List<Category> categories) {
         if (isNull(categories)) {
             return new ArrayList<>();
         }
@@ -30,5 +27,5 @@ public interface ProductMapper {
     }
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateProductFromDto(ProductUpdateDto dto, @MappingTarget Product entity);
+    void updateProductFromDto(ProductUpdateRequest dto, @MappingTarget Product entity);
 }
