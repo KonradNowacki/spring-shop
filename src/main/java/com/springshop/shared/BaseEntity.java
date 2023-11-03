@@ -1,6 +1,8 @@
 package com.springshop.shared;
 
 
+import com.springshop.domains.category.Category;
+import com.springshop.domains.product.Product;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;

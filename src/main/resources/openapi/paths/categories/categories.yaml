@@ -12,7 +12,7 @@ get:
           schema:
             type: array
             items:
-              $ref: '../schemas/category/category.response.yaml'
+              $ref: '../../schemas/category/category.response.yaml'
 
 post:
   summary: Create a new product category
@@ -26,11 +26,11 @@ post:
     content:
       application/json:
         schema:
-          $ref: '../schemas/category/category-create.request.yaml'
+          $ref: '../../schemas/category/category-create.request.yaml'
   responses:
     '201':
       description: CREATED
       content:
         application/json:
           schema:
-            $ref: '../schemas/category/category.response.yaml'
+            $ref: '../../schemas/category/category.response.yaml'

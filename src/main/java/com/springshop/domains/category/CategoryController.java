@@ -14,9 +14,8 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-public class CategoryController implements CategoriesApi {
+public final class CategoryController implements CategoriesApi {
 
-    private final CategoryMapper categoryMapper;
     private final CategoryService categoryService;
 
     @Override
@@ -25,12 +24,10 @@ public class CategoryController implements CategoriesApi {
         log.info("Creating category: {}", categoryCreateRequest);
 
         try {
-            Category category = categoryMapper.dtoToEntity(categoryCreateRequest);
-            Category createdCategory = categoryService.createCategory(category);
-            CategoryResponse categoryDto = categoryMapper.entityToDto(createdCategory);
+            CategoryResponse category = categoryService.createCategory(categoryCreateRequest);
 
             // TODO Add better URI
-            return ResponseEntity.created(new URI("/")).body(categoryDto);
+            return ResponseEntity.created(new URI("/")).body(category);
         } catch (Exception e) {
             // TODO: handle exception
         }
@@ -43,14 +40,11 @@ public class CategoryController implements CategoriesApi {
         log.info("Getting all categories");
 
         try {
-            List<Category> categories = categoryService.getCategories();
-            List<CategoryResponse> categoryDtos = categories.stream()
-                    .map(categoryMapper::entityToDto)
-                    .toList();
-
-            return ResponseEntity.ok(categoryDtos);
+            List<CategoryResponse> categories = categoryService.getCategories();
+            return ResponseEntity.ok(categories);
         } catch (Exception e) {
             // TODO: handle exception
+            log.error("Error getting categories", e);
         }
 
         return null;

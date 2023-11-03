@@ -1,7 +1,6 @@
 package com.springshop.domains.product;
 
 import com.springshop.openapi.api.ProductsApi;
-import com.springshop.openapi.model.ProductCreateDto;
 import com.springshop.openapi.model.ProductCreateRequest;
 import com.springshop.openapi.model.ProductResponse;
 import com.springshop.openapi.model.ProductUpdateRequest;
@@ -17,9 +16,8 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-public class ProductController implements ProductsApi {
+public final class ProductController implements ProductsApi {
 
-    private final ProductMapper productMapper;
     private final ProductService productService;
 
     @Override
@@ -27,10 +25,7 @@ public class ProductController implements ProductsApi {
         log.info("Creating product: {}", productCreateRequest);
 
         try {
-            Product product = productMapper.createDtoToEntity(productCreateRequest);
-            Product createdProduct = productService.createProduct(product, productCreateRequest.getCategoryIds());
-            ProductResponse productResponse = productMapper.entityToDto(createdProduct);
-
+            ProductResponse productResponse = productService.createProduct(productCreateRequest);
             // TODO Add better URI
             return ResponseEntity.created(new URI("/")).body(productResponse);
         } catch (Exception e) {
@@ -46,10 +41,8 @@ public class ProductController implements ProductsApi {
         log.info("Getting all products");
 
         try {
-            List<Product> products = productService.getProducts();
-            List<ProductResponse> productDtos = products.stream().map(productMapper::entityToDto).toList();
-
-            return ResponseEntity.ok(productDtos);
+            List<ProductResponse> products = productService.getProducts();
+            return ResponseEntity.ok(products);
         } catch (Exception e) {
             // TODO: handle exception
         }
@@ -79,13 +72,10 @@ public class ProductController implements ProductsApi {
         log.info("Updating product: {}", productUpdateDto);
 
         try {
-            Product createdProduct = productService.updateProduct(id, productUpdateDto);
-            ProductResponse productDto = productMapper.entityToDto(createdProduct);
-
-            System.out.println("productDto: " + productDto);
+            ProductResponse product = productService.updateProduct(id, productUpdateDto);
 
             // TODO Add better URI
-            return ResponseEntity.created(new URI("/")).body(productDto);
+            return ResponseEntity.created(new URI("/")).body(product);
         } catch (Exception e) {
             log.error("Error updating product: {}", productUpdateDto, e);
             if (e instanceof NotFoundException) {
@@ -101,13 +91,9 @@ public class ProductController implements ProductsApi {
         log.info("Getting product with id: {}", id);
 
         try {
-            Product createdProduct = productService.getProductById(id);
-            ProductResponse productDto = productMapper.entityToDto(createdProduct);
-
-            System.out.println("productDto: " + productDto);
-
+            ProductResponse product = productService.getProductById(id);
             // TODO Add better URI
-            return ResponseEntity.created(new URI("/")).body(productDto);
+            return ResponseEntity.created(new URI("/")).body(product);
         } catch (Exception e) {
             log.error("Error getting product with id: {}", id, e);
             if (e instanceof NotFoundException) {

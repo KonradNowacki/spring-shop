@@ -1,0 +1,25 @@
+type: object
+properties:
+  country:
+    $ref: '../schemas/countries/countries.yaml'
+  city:
+    type: string
+    format: double
+  zipCode:
+    type: string
+    regex: ^[0-9]{2}-[0-9]{3}$
+  street:
+    type: string
+  houseNumber:
+    type: string
+  apartmentNumber:
+    type: string
+  additionalInformation:
+    type: string
+
+required:
+  - country
+  - city
+  - zipCode
+  - street
+  - houseNumber

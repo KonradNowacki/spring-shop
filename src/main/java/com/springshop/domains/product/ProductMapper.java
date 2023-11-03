@@ -16,7 +16,7 @@ public interface ProductMapper {
     CategoryResponse categoryEntityToDto(Category category);
 
     @Mapping(target = "categories", source = "categories", qualifiedByName = "categoryEntityToDto")
-    ProductResponse entityToDto(Product entity);
+    ProductResponse entityToResponse(Product entity);
 
     @Named("categoryEntityToDto")
     default List<CategoryResponse> categoryEntityToDto(List<Category> categories) {

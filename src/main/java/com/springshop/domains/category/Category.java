@@ -1,5 +1,6 @@
 package com.springshop.domains.category;
 
+import com.springshop.shared.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,7 +11,7 @@ import lombok.*;
 @Setter
 @Table(name = "categories")
 @AllArgsConstructor
-public class Category {
+public final class Category extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

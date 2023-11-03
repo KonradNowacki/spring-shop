@@ -1,0 +1,18 @@
+type: object
+properties:
+  - productIds:
+      type: array
+      items:
+        type: integer
+        format: int64
+  - orderAddress:
+      $ref: '../../schemas/order-address/order-address.request.yaml'
+#  - invoiceDetails:
+#      $ref: '../../schemas/invoice-details/invoice-details.request.yaml'
+#  - paymentDetails:
+#      $ref: '../../schemas/payment-details/payment-details.request.yaml'
+
+
+required:
+  - productIds
+  - orderAddress

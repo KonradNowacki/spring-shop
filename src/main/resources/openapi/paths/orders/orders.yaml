@@ -1,0 +1,20 @@
+post:
+  summary: Place a new order
+  operationId: createOrder
+  description: Create a new order
+  tags:
+    - Orders
+  requestBody:
+    description: Order
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../schemas/order/order-create.request.yaml'
+  responses:
+    '201':
+      description: CREATED
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/order/order.response.yaml'
